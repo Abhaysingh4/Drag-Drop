@@ -24,7 +24,7 @@ td{
 .container{
     display: flex;
     justify-content: center;
-    margin-top: 200px;
+    margin-top: 150px;
 }
 .btn{
     display: flex;
