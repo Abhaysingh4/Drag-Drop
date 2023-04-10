@@ -1,13 +1,12 @@
 let sourceBox;
 let lastSwap;
-
+let arr = [];
 function allowDrop(ev) {
   ev.preventDefault();
 }
 
 function drag(ev) {
   sourceBox = ev.target;
-  ev.dataTransfer.setData("text", ev.target.id);
   ev.target.style.opacity = "0.4";
 }
 
@@ -15,7 +14,7 @@ function drop(ev) {
   ev.preventDefault();
   let targetBox = ev.target;
   lastSwap = [sourceBox, targetBox];
-  
+  arr.push(lastSwap);
   let tempContent = sourceBox.innerHTML;
   let tempColor = sourceBox.style.backgroundColor;
   sourceBox.innerHTML = targetBox.innerHTML;
@@ -51,9 +50,11 @@ for (let i = 0; i < boxes.length; i++) {
 
 
 function undoSwap() {
-  if (lastSwap) {
-    let targetBox = lastSwap[0];
-    let sourceBox = lastSwap[1];
+  if (arr.length>0) {
+    let targetBox = arr[arr.length - 1][0];
+    let sourceBox = arr[arr.length - 1][1];
+    arr.pop();
+    sourceBox.style.opacity = "0.4";
     lastSwap = null;
     let tempContent = sourceBox.innerHTML;
     let tempColor = sourceBox.style.backgroundColor;
@@ -79,3 +80,4 @@ function undoSwap() {
     };
   }
 }
+
